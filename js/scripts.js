@@ -35,6 +35,11 @@ function setGameElements() {
       break;
     case 'ended':
         newGameBtn.innerText = 'Jeszcze raz';
+		playerPickElem.innerText = 'Wybór gracza';
+		computerPickElem.innerText = 'Wybór komputera';
+		playerResultElem.innerText = 'Wynik gracza';
+		computerResultElem.innerText = 'Wynik komputera';
+		
     case 'notStarted':
     default:
         newGameElem.style.display = 'block';
@@ -63,10 +68,6 @@ function newGame() {
 
 }
 		
-//wybór gracza i komputera
-function playerPick(playerPick) {
-    console.log(playerPick);
-}
 function getComputerPick() {
     var possiblePicks = ['rock', 'paper', 'scissors'];
     return possiblePicks[Math.floor(Math.random()*3)];
@@ -76,12 +77,6 @@ var playerPickElem = document.getElementById('js-playerPick'),
     computerPickElem = document.getElementById('js-computerPick'),
     playerResultElem = document.getElementById('js-playerResult'),
     computerResultElem = document.getElementById('js-computerResult');
-function playerPick(playerPick) {
-    var computerPick = getComputerPick();
-    
-    playerPickElem.innerHTML = playerPick;
-    computerPickElem.innerHTML = computerPick;
-}
 
 //punkty
 function checkRoundWinner(playerPick, computerPick) {
@@ -102,16 +97,14 @@ function checkRoundWinner(playerPick, computerPick) {
     if (winnerIs == 'player') {
         playerResultElem.innerHTML = "Wygrana!";
         player.score++;
-		setGamePoints()
-		whenTen() 
     } else if (winnerIs == 'computer') {
         computerResultElem.innerHTML = "Wygrana!";
-        computer.score++;
-		setGamePoints()
-		whenTen()
-    }
-//	console.log(player.score)
-//	console.log(computer.score)
+        computer.score++;		
+    } else {
+		playerResultElem.innerHTML = computerResultElem.innerHTML = 'Remis';
+	}
+	setGamePoints();
+	whenTen();
 }
 
 function playerPick(playerPick) {
@@ -134,14 +127,10 @@ function whenTen() {
 		alert ('wygrał ' + player.name +'!');
 		gameState = 'ended';
 		setGameElements();
-		playerNameElem.innerHTML = player.name;
-		setGamePoints(); 
 	} else if (computer.score == 10) {
 		alert ('wygrał komputer !');
 		gameState = 'ended';
 		setGameElements();
-		playerNameElem.innerHTML = player.name;
-		setGamePoints(); 
 	}
 }
 
